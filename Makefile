@@ -1,10 +1,7 @@
-modname ?= helloworld
-KERNELDIR := /lib/modules/$(shell uname -r)/build/
-PWD := $(shell pwd)
+obj-m += example2.o
 all:
-	make -C $(KERNELDIR) M=$(PWD) modules
+	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+	$(CROSS_COMPILE)gcc -o test test.c
 clean:
-	make -C $(KERNELDIR) M=$(PWD) clean
-install:
-	cp ./$(modname).ko ./Bin
-obj-m:= $(modname).o
+	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+	rm -rf test
